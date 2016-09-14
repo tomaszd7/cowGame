@@ -10,11 +10,24 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
+        <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
         <script src="js/Character.js"></script>
         <script src="js/CowBoard.js"></script>
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-                var app = new CowBoard();                
+                var app = new CowBoard();      
+//                console.log(app.charactersOnBoard);
+                app.htmlNode.intervalFunc = setInterval(function() {
+//                    console.log(app.charactersOnBoard);
+                    for (var i = 0; i < app.charactersOnBoard.length; i++) {
+                        app.charactersOnBoard[i].doAction();
+                    }
+                }, 250);
+                app.htmlNode.addEventListener('click', function(event) {
+//                    console.log('ask stop');
+//                     console.log(event);
+                    clearInterval(event.target.intervalFunc);
+                })
             })
             
         </script>
