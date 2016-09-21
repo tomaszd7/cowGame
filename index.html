@@ -1,12 +1,8 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
+
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>CowGame</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
@@ -16,18 +12,36 @@ and open the template in the editor.
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 var app = new CowBoard();      
-//                console.log(app.charactersOnBoard);
+
                 app.htmlNode.intervalFunc = setInterval(function() {
-//                    console.log(app.charactersOnBoard);
-                    for (var i = 0; i < app.charactersOnBoard.length; i++) {
-                        app.charactersOnBoard[i].doAction();
-                    }
-                }, 250);
+                    app.runGameLoop(); }, 1000);
+                
                 app.htmlNode.addEventListener('click', function(event) {
-//                    console.log('ask stop');
-//                     console.log(event);
+                    console.log('ask stop');
                     clearInterval(event.target.intervalFunc);
                 })
+                
+                window.addEventListener('keydown', function (event) {
+//                    console.log('key pressed', event);
+                    var move = {x: null, y: null};
+                    switch(event.key) {
+                    case 'ArrowDown': 
+                       move = {x: 0, y: 1};
+                       break;
+                    case 'ArrowUp': 
+                       move = {x: 0, y: -1};
+                       break;
+                    case 'ArrowLeft': 
+                       move = {x: -1, y: 0};
+                       break;
+                    case 'ArrowRight': 
+                       move = {x: 1, y: 0};
+                       break;
+                    }
+                    console.log(move);
+                    app.user.doAction(app.board, move);
+                })
+                
             })
             
         </script>
